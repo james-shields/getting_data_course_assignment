@@ -59,11 +59,11 @@ vars_to_keep <- grepl("subject", n) | grepl("activity_code",n) |  (grepl("mean",
 merged_trimmed <- merged[,vars_to_keep]
 
 # merge the activity labels with the trimmed datasets to obtain meaningfull names for the activity codes
-m <- merge(activity_labels, merged_trimmed, by.x="activity_code", by.y="activity_code")
+merged_labeled <- merge(activity_labels, merged_trimmed, by.x="activity_code", by.y="activity_code")
 
 # uses the melt method in the reshape2 library to convert the wide data into a narrow dataset
 # with individual rows for each measurement of a subject doing an activity
-molten <- melt(m, id.vars=c("activity_code", "activity", "subject"), value.name="measurement")
+molten <- melt(merged_labeled, id.vars=c("activity_code", "activity", "subject"), value.name="measurement")
 
 # coerce character measurements to numeric type
 molten$var <- as.numeric(molten$measurement)
