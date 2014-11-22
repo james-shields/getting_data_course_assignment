@@ -1,3 +1,14 @@
+# run_analysis.R
+# Author: James Shields
+# Email: james.shields@gmail.com
+# Purpose:  The purpose of this program is to download data on wearable computers,
+#           merge the data contained in test and train files, and convert the results
+#           into a tidy dataset.
+#
+#           This was completed for the Getting Data course conducted by Johns Hopkins University
+#           and hosted by Coursera.
+
+
 # libraries to import
 library(reshape2)
 
