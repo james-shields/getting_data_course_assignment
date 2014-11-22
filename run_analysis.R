@@ -55,7 +55,7 @@ merged <- rbind(test,train)
 
 # identify only variables containing mean or standard deviation in the merged dataset
 n <- names(merged)
-vars_to_keep <- as.logical(grepl("subject", n) + grepl("activity_code",n) +  grepl("mean", n) +  grepl("std", n))
+vars_to_keep <- grepl("subject", n) | grepl("activity_code",n) |  (grepl("mean", n) & !grepl("meanFreq", n)) |  grepl("std", n)
 merged_trimmed <- merged[,vars_to_keep]
 
 # merge the activity labels with the trimmed datasets to obtain meaningfull names for the activity codes
@@ -68,7 +68,7 @@ molten <- melt(m, id.vars=c("activity_code", "activity", "subject"), value.name=
 # coerce character measurements to numeric type
 molten$var <- as.numeric(molten$measurement)
 
-# create a datset containing the average of each measurement for subject, activity, and variable
+# create a datset containing the average of each urement for subject, activity, and variable
 averages <- aggregate(formula=measurement ~ activity + subject + variable, data=molten, FUN=mean, na.action=na.omit)
 
 # write data to a file
