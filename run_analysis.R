@@ -68,7 +68,7 @@ molten <- melt(m, id.vars=c("activity_code", "activity", "subject"), value.name=
 # coerce character measurements to numeric type
 molten$var <- as.numeric(molten$measurement)
 
-# create a datset containing the average of each urement for subject, activity, and variable
+# create a datset containing the average of each measurement for subject, activity, and variable
 averages <- aggregate(formula=measurement ~ activity + subject + variable, data=molten, FUN=mean, na.action=na.omit)
 
 # write data to a file
