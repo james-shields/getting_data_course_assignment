@@ -12,3 +12,5 @@ This repository contains two files.
 2.  CODEBOOK.md
     This codebook contains a description of the analysis run by run_analysis.R as well
     as descriptions of the variables contained in getting_data_output.txt.
+
+The run_analysis.R script was written to run on Ubuntu Linux.  

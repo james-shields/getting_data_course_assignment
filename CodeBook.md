@@ -92,7 +92,7 @@ As only variables containing the mean and standard deviatio are of interest, the
 on the data set are then searched to identify only the variables that contain the subject, activity code,
 mean and standard deviation by means of R's *grepl()* method.  The variables containing values of the
 meanFreq are not included in this dataset, as they are not the values that are being measured, but rather
-the weighted average of the frequency components.
+the weighted average of the frequency components of the angles.
 
 ### Converting to a narrow data set ###
 
