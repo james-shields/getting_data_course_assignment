@@ -75,6 +75,78 @@ performed by a subject during the experiment.
 * **subject\_test.txt** / **subject\_train.txt** --These files contain the identifiers for the individual
 subjects in each of the *test* and *train* groups.
 
+The script loads the variable names from the **features.txt** file and applies them to each of the x_ files
+from the *test* and *train* data sets.  
 
+### Merging data sets and selecting variables ###
+
+The x, y, and subject files for both the *test* and *train* data sets are merged into a a single
+dataset by means of R's *cbind()* method.  These datasets are then concatenated using the *rbind()* method.
+
+The activity labels from the *activity_labels.txt* file are then merged with the combined dataset to
+assign meaningful activity codes to the activities.
+
+As only variables containing the mean and standard deviatio are of interest, the variable naems from the
+on the data set are then searched to identify only the variables that contain the subject, activity code,
+mean and standard deviation by means of R's *grepl()* method.  The variables containing values of the
+meanFreq are not included in this dataset, as they are not the values that are being measured, but rather
+the weighted average of the frequency components.
+
+### Converting to a narrow data set ###
+
+The data set thus far is in a wide format.  The *melt()* method from R's *reshape2* library is used to
+convert this wide data set into a tall, narrow format.  Each row in this dataset contains the subject ID,
+the activity label, a textual description of the measurement that was taken, and measurement value as a
+character.  The textual value for the measurement is then coerced into a numeric value using the
+*as.numeric()* method.
+
+### Summarizing the data ###
+
+Next, a summary dataset is created from the combined dataset produced in the section above.  The summary
+data set averages each of the measurments for each subject while performing one of the activities.  This
+is accomplished by using the *aggregate()* method.
+
+### Output ###
+
+Finally, a text file is created in the working directory.  This file contains the summarized data set
+produced in the previous section.  The file is created using the *write.table()* method and suppressing
+variable names, by setting the *col.names* option to *FALSE*.  This file is titled "*getting\_data\_output.txt*".
+
+## Code Book ##
+
+The "*getting\_data\_output.txt*" file is a space-delimited file containing the tidy data set produced by
+the run_analysis.R script.  Text values are indicated by quotation marks ("").  The variables contained
+in the data set are described below.
+
+* **row ID**
+
+  Row ID is a unique identifier for each row in the tidy data set.  It is a character-type value, enclosed
+  in quotation marks ("").
+* **activity code**  
+  Activity code is a meaningful, textual description of each activity that a subject was performing.  The
+  valid values are
+  
+  * LAYING
+  * SITTING
+  * STANDING
+  * WALKING
+  * WALKING\_DOWNSTAIRS
+  * WALKING\_UPSTAIRS
+
+  Each value is enclosed in quotation marks (""), as this variable is of the character type.
+* **subject ID**  
+
+  Subject ID is a numeric code for each of the 30 subjects in the study.  The identifiers that are used are
+  simply the numbers 1 -- 30.
+* **measurement**  
+
+  Measurement is the meaningful, textual name for each measurement taken of the subject.  It is a character
+  type value and each value is enclosed in quotation marks ("").
+* **average value**  
+
+  The average value contains the mean value for each of the measurements for each subject performing each
+  activity.  This is a numeric type value. The measurements are time values, with units in seconds.
+
+-------------------------------------------------------------------------------  
 [^1]: Per Jeffrey Leek's lecture "The components of tidy data" [Here](https://d396qusza40orc.cloudfront.net/getdata/lecture_slides/01_03_componentsOfTidyData.pdf).
 
