@@ -13,4 +13,5 @@ This repository contains two files.
     This codebook contains a description of the analysis run by run_analysis.R as well
     as descriptions of the variables contained in getting_data_output.txt.
 
-The run_analysis.R script was written to run on Ubuntu Linux.  
+The run_analysis.R script was written to run on Ubuntu Linux.  Run the script from R to 
+download the relevant data an produce the output file.
