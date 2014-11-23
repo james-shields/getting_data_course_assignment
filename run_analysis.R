@@ -11,6 +11,7 @@
 
 # libraries to import
 library(reshape2)
+library(plyr)
 
 # create directory if it does not already exist
 if (!file.exists("./data/")){ dir.create("./data") }
@@ -63,13 +64,16 @@ merged_labeled <- merge(activity_labels, merged_trimmed, by.x="activity_code", b
 
 # uses the melt method in the reshape2 library to convert the wide data into a narrow dataset
 # with individual rows for each measurement of a subject doing an activity
-molten <- melt(merged_labeled, id.vars=c("activity_code", "activity", "subject"), value.name="measurement")
+molten <- melt(merged_labeled, id.vars=c("activity_code", "activity", "subject"), value.name="value")
 
 # coerce character measurements to numeric type
-molten$var <- as.numeric(molten$measurement)
+molten$var <- as.numeric(molten$value)
 
 # create a datset containing the average of each measurement for subject, activity, and variable
-averages <- aggregate(formula=measurement ~ activity + subject + variable, data=molten, FUN=mean, na.action=na.omit)
+averages <- aggregate(formula=value ~ activity + subject + variable, data=molten, FUN=mean, na.action=na.omit)
+
+# rename measurement to average_measurement
+averages <- rename(averages, replace=c("value" = "average_value", "variable" = "measurement"))
 
 # write data to a file
-write.table(averages, file="./getting_data_output.txt", col.names=FALSE)
+write.table(averages, file="./getting_data_output.txt", row.names=FALSE)

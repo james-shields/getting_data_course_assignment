@@ -106,26 +106,24 @@ character.  The textual value for the measurement is then coerced into a numeric
 
 Next, a summary dataset is created from the combined dataset produced in the section above.  The summary
 data set averages each of the measurments for each subject while performing one of the activities.  This
-is accomplished by using the *aggregate()* method.
+is accomplished by using the *aggregate()* method.  The *rename()* method from the *plyr* package is used
+to convert the variable names into more meaningful values for the output file.
 
 ### Output ###
 
 Finally, a text file is created in the working directory.  This file contains the summarized data set
 produced in the previous section.  The file is created using the *write.table()* method and suppressing
-variable names, by setting the *col.names* option to *FALSE*.  This file is titled "*getting\_data\_output.txt*".
+row names, by setting the *row.names* option to *FALSE*.  This file is titled "*getting\_data\_output.txt*".
 
 ## Code Book ##
 
 The "*getting\_data\_output.txt*" file is a space-delimited file containing the tidy data set produced by
-the run_analysis.R script.  Text values are indicated by quotation marks ("").  The variables contained
-in the data set are described below.
+the run_analysis.R script.  Text values are indicated by quotation marks ("").  Variable names are contained
+in the first row of the file.  The variables contained in the data set are described below.
 
-* **row ID**
+* **activity**
 
-  Row ID is a unique identifier for each row in the tidy data set.  It is a character-type value, enclosed
-  in quotation marks ("").
-* **activity code**  
-  Activity code is a meaningful, textual description of each activity that a subject was performing.  The
+  Activity is a meaningful, textual description of each activity that a subject was performing.  The
   valid values are
   
   * LAYING
@@ -136,15 +134,15 @@ in the data set are described below.
   * WALKING\_UPSTAIRS
 
   Each value is enclosed in quotation marks (""), as this variable is of the character type.
-* **subject ID**  
+* **subject**  
 
-  Subject ID is a numeric code for each of the 30 subjects in the study.  The identifiers that are used are
+  Subject is a numeric code for each of the 30 subjects in the study.  The identifiers that are used are
   simply the numbers 1 -- 30.
 * **measurement**  
 
   Measurement is the meaningful, textual name for each measurement taken of the subject.  It is a character
   type value and each value is enclosed in quotation marks ("").
-* **average value**  
+* **average_value**  
 
   The average value contains the mean value for each of the measurements for each subject performing each
   activity.  This is a numeric type value. The measurements are time values, with units in seconds.
