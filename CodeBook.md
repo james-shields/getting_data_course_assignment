@@ -76,7 +76,9 @@ performed by a subject during the experiment.
 subjects in each of the *test* and *train* groups.
 
 The script loads the variable names from the **features.txt** file and applies them to each of the x_ files
-from the *test* and *train* data sets.  
+from the *test* and *train* data sets.  Furthermore, the variable names are cleaned to remove the periods (.)
+denoting spaces (by means of the *gsub()* method) and remove characters that are invald in R names (using
+the *make.names()* method).  
 
 ### Merging data sets and selecting variables ###
 
